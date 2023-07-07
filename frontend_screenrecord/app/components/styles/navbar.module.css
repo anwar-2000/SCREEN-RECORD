@@ -1,0 +1,36 @@
+.nav{
+    margin-top : 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height : 3rem;
+    color : white;
+    width : 90vw;
+}
+.ul{
+    display: flex;
+    gap : 2rem;
+    list-style: none;
+}
+
+.ul li {
+    font-weight: bold;
+    cursor : pointer;
+    position: relative;
+    padding-bottom: 0.6rem;;
+}
+
+.ul li::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.3s ease;
+  }
+  
+ .ul li:hover::after {
+    width: 100%;
+  }
