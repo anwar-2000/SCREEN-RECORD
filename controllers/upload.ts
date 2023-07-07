@@ -13,7 +13,7 @@ interface RequestWithFiles extends Request {
   files: Files;
 }
 
-export const upload = async (req: RequestWithFiles, res: Response) => {
+export const upload = async (req: RequestWithFiles, res: Response) : Promise<any> => {
   try {
     const file = req.files.video;
     const result = await cloudinary.v2.uploader.upload(file.tempFilePath, {
@@ -21,7 +21,7 @@ export const upload = async (req: RequestWithFiles, res: Response) => {
     });
     res.json({ url: result.secure_url });
   } catch (error) {
-    console.log("UPLOADING VIDEO ",error)
+    console.log('UPLOADING VIDEO ', error);
     res.status(500).json({ error: error.message });
   }
 };
