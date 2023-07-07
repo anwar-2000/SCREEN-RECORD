@@ -16,12 +16,12 @@ interface User extends Document {
 const videoSchema = new Schema<Video>({
   title: { type: String, required: true },
   url : {type : String , required : true},
-  date: { type: Date, required: true },
+  date: { type: Date, required: true , default : Date.now() },
 });
 
 const userSchema = new Schema<User>({
-  username: { type: String, required: true },
-  email: { type: String, required: true },
+  username: { type: String, required: true , unique : true},
+  email: { type: String, required: true , unique : true},
   password: { type: String, required: true },
   videos: [videoSchema],
 });
