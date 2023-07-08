@@ -1,0 +1,9 @@
+.container__video{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.video {
+    border : solid 1px white;
+}

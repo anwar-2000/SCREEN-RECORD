@@ -1,17 +1,20 @@
-import React from 'react'
+"use client"
+import { VideoContext } from '@/app/VideoContext';
+import React, { useContext } from 'react'
 import styles from "../styles/main.module.css"
 
-
 const MainHero = () => {
+  const {stream ,
+    startRecording,
+} = useContext(VideoContext);
   return <div className='container'>
         <div className={styles.head}>
             <h1>Online Screen Recorder</h1>
-            <small>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus accusamus distinctio ullam est cum!</small>
+            <small>Create high-quality screen recordings effortlessly. Capture tutorials, gaming highlights, and presentations with just a few clicks. Your videos are securely saved in your personal database, accessible anytime after login. Organize, manage, and preserve your valuable content with ease. Experience the convenience of our screen recorder today!</small>
         </div>
         <div className={styles.actions}>
-                <button>Start Recording</button>
+                <button onClick={startRecording}>Start Recording</button>
         </div>
   </div>
 }
-
 export default MainHero

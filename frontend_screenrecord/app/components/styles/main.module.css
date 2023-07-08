@@ -6,15 +6,14 @@
     justify-content: center;
     position: relative;
 }
-
 .head {
     padding: 1rem;
     width : 100%;   
     text-align : center;
-
 }
  .head h1 {
         font-size: 4.2rem;
+        text-align : center;
  }
 
  .actions{
