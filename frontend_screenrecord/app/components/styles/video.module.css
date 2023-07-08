@@ -5,6 +5,12 @@
     flex-direction: column;
     gap : 3rem;
     
+    
+}
+
+.icon {
+       transform: translate(18rem,3rem) !important;
+       cursor: pointer;
 }
 .video video {
     margin-top : 3rem;
@@ -24,11 +30,21 @@
     border : none;
     border-radius: 10px;
     color : black;
-    font-weight: lighter;
+    font-weight: bolder;
     cursor: pointer;
     transition: all ease 400ms;
 }
 
 .actions button:hover {
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.actions a  {
+    padding : 0.8rem;
+    background:  white;
+    border : none;
+    border-radius: 10px;
+    color : rgb(17, 12, 12);
+    font-weight: bolder;
+    cursor: pointer;
 }

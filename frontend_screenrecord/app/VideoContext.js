@@ -6,20 +6,21 @@ const VideoContext = createContext({
   videoUrl : null,
   recordedVideo: { current: null },
   startRecording: () => {},
+
   StopCapture: () => {},
 });
 
 //let url = "http://localhost:8000/upload";
 let recordedChunks = [];
-const options = { mimeType: 'video/webm' };
-
+const Mediaoptions = { mimeType: 'video/webm;codecs=vp9' };
+let mediaRecorder;
 
 const ContextProvider = ({ children }) => {
   const [showVideo, setShowVideo] = useState(true);
   const [stream, setStream] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
   const recordedVideo = useRef();
-  let mediaRecorder;
+
 
 
 
@@ -42,7 +43,7 @@ const ContextProvider = ({ children }) => {
       recordedVideo.current.play();
     }
   }, [stream]);
-
+  
   const startRecording = async () => {
     //console.log("STARTING SCREEN CAPTURE" + " " + stream);
     let captureStream;
@@ -58,7 +59,7 @@ const ContextProvider = ({ children }) => {
        // console.log("SRCoBJECT" + " " + recordedVideo.current.srcObject);
     }
      // Set up the MediaRecorder
-     mediaRecorder = new MediaRecorder(captureStream, options);
+     mediaRecorder = new MediaRecorder(captureStream, Mediaoptions);
      mediaRecorder.ondataavailable = (event) => {
       console.log('ondataavailable', event.data.size);
        if (event.data.size > 0) {
@@ -71,11 +72,14 @@ const ContextProvider = ({ children }) => {
        }
      };
      mediaRecorder.start();
+     console.log("media recorder BEFORE",mediaRecorder)
   };
 
 
 
   const StopCapture = async () => {
+    
+    console.log("media recorder AFTER",mediaRecorder)
     //console.log("STOPPING CAPTURE" + " " + stream);
     if (stream) {
       stream.getTracks().forEach((track) => {
@@ -83,22 +87,26 @@ const ContextProvider = ({ children }) => {
       });
       // Stop the MediaRecorder
       
-    
       // Creating a Blob from the recorded data
       console.log('recordedChunks 2', recordedChunks );
-      const blob = new Blob(recordedChunks, { type: 'video/webm' });
-      console.log('Blob size:', blob.size);
-      //console.log('Blob type:', blob.type);
-    // Creating a temporary URL for the Blob
-      setVideoUrl(URL.createObjectURL(blob));
-
+      
     setShowVideo(false);
     //console.log("URL 1 ", videoUrl )
 
+    
+
+    mediaRecorder.onstop = () => {
+    const blob = new Blob(recordedChunks, { type: 'video/webm;codecs=vp9' });
+      console.log('Blob : ', blob);
+      //console.log('Blob type:', blob.type);
+    // Creating a temporary URL for the Blob
+      setVideoUrl(URL.createObjectURL(blob));
+    }
     if(mediaRecorder){
       mediaRecorder.stop();      
-    }
-      
+     }
+    console.log(videoUrl)
+/*
     // Convert the Blob to a base64-encoded string
     const reader = new FileReader();
     reader.readAsDataURL(blob);
@@ -106,7 +114,7 @@ const ContextProvider = ({ children }) => {
     reader.onloadend = async () => {
     base64data = reader.result;
   }
-    /*
+    
       try {
         const response = await fetch(url, {
           method: "POST",
