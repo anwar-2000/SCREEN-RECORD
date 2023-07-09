@@ -1,0 +1,48 @@
+.login__container {
+    height: 100vh;
+    margin-top: 10rem;
+}
+
+.form{
+  height : 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.form input{
+    padding: 1.5rem 6rem;
+    padding-left : 0.8rem;
+    background-color: rgb(117, 174, 224);
+    border: none;
+    border-radius: 20px;
+    color: #696868;;
+    font-weight: bold;
+    font-size: large;
+    font-style: italic;
+}
+
+.form input:focus{
+  outline:  none;
+  border : white 0.5px solid;
+}
+
+.form input::placeholder {
+  color: #696868;
+  font-style: italic;
+}
+
+.form input[type="submit"] {
+  padding: 1rem 4rem;
+  background-color: rgb(52, 119, 177);
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: large;
+  cursor: pointer;
+  text-align: center;
+}
+

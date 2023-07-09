@@ -4,42 +4,43 @@ import Card from './Card';
 
 const examples = [
   {
-    titre: "Software Tutorial",
-    description: "Record your screen to create a tutorial on how to use a specific software application."
+    titre: "Website Tutorial",
+    description: "Record your screen while navigating and using a website to create a tutorial guiding users on how to navigate its features and functionality."
   },
   {
-    titre: "Webinar Presentation",
-    description: "Use an online screen recorder to capture your presentation and share it with remote attendees of a webinar."
+    titre: "User Testing and Feedback",
+    description: "Allow users to record their screen while using your website to gather feedback, identify usability issues, and improve the user experience."
   },
   {
-    titre: "Gaming Highlight Reel",
-    description: "Record your gaming sessions using an online screen recorder to capture exciting moments and create a highlight reel."
+    titre: "Website Debugging and Issue Reporting",
+    description: "Utilize the screen recording feature to capture and demonstrate any bugs, errors, or issues encountered on the website, making it easier for developers to understand and resolve them."
   },
   {
-    titre: "Remote Training Session",
-    description: "Record your screen during a remote training session to provide participants with a reference video for future learning and review."
+    titre: "Collaborative Web Development",
+    description: "Enable web developers and designers to record their screen while working on a website collaboratively, facilitating communication and knowledge sharing among team members."
   },
   {
-    titre: "Bug Report Demonstration",
-    description: "Use an online screen recorder to capture and demonstrate software bugs or issues for better communication with developers and troubleshooting."
+    titre: "Remote Webinars and Presentations",
+    description: "Provide a platform for hosting webinars and presentations where speakers can record their screen to deliver engaging and informative content to remote attendees."
   },
   {
-    titre: "Digital Art Creation Process",
-    description: "Record your screen while creating digital art to showcase your artistic process, techniques, and workflow to inspire and educate others."
+    titre: "E-Learning and Online Courses",
+    description: "Allow educators and trainers to record their screen during online courses, lectures, or tutorials, providing students with valuable learning materials and resources."
   },
   {
-    titre: "Product Demo Video",
-    description: "Create a product demo video by recording your screen to showcase the features, functionality, and benefits of a product or service."
+    titre: "Product Walkthrough and Demonstrations",
+    description: "Enable businesses to create product walkthrough videos by recording the screen, showcasing the features, functionalities, and benefits of their website or online services."
   },
   {
-    titre: "User Experience Testing",
-    description: "Record user interactions and behaviors on a website or application to gather insights and analyze the user experience for improvements."
+    titre: "Website Performance Analysis",
+    description: "Allow website owners and developers to record the user journey on their website to analyze user behavior, identify pain points, and optimize the website's performance."
   },
   {
-    titre: "Virtual Classroom Session",
-    description: "Record virtual classroom sessions to provide students with review materials or as a resource for those who missed the live session."
+    titre: "Virtual Meetings and Conferencing",
+    description: "Provide a screen recording feature for virtual meetings and conferences, allowing participants to capture and review important discussions, presentations, and collaborations."
   }
 ];
+
 
 type Item = {
   titre : string,

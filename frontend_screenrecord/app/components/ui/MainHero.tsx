@@ -10,7 +10,7 @@ const MainHero = () => {
   return <div className='container'>
         <div className={styles.head}>
             <h1>Online Screen Recorder</h1>
-            <small>Create high-quality screen recordings effortlessly. Capture tutorials, gaming highlights, and presentations with just a few clicks. Your videos are securely saved in your personal database, accessible anytime after login. Organize, manage, and preserve your valuable content with ease. Experience the convenience of our screen recorder today!</small>
+            <small>Create high-quality screen recordings effortlessly. Capture tutorials, gaming highlights, and presentations with just a few clicks. Your videos are securely saved in your personal database, accessible anytime after login.</small>
         </div>
         <div className={styles.actions}>
                 <button onClick={startRecording}>Start Recording</button>

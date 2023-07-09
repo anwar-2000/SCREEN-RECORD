@@ -1,6 +1,4 @@
 "use client"
-
-import Image from 'next/image'
 import { useContext, useEffect, useState } from 'react'
 import Examples from './components/ui/Examples'
 import MainHero from './components/ui/MainHero'

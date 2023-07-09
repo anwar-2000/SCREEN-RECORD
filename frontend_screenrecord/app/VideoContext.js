@@ -10,9 +10,9 @@ const VideoContext = createContext({
   StopCapture: () => {},
 });
 
-//let url = "http://localhost:8000/upload";
+let url = "http://localhost:8000/upload";
 let recordedChunks = [];
-const Mediaoptions = { mimeType: 'video/webm;codecs=vp9' };
+const Mediaoptions = { mimeType: 'video/webm;codecs=vp9' , videoBitsPerSecond: 5000000 };
 let mediaRecorder;
 
 const ContextProvider = ({ children }) => {
@@ -26,6 +26,7 @@ const ContextProvider = ({ children }) => {
 
   let options = {
     video: true,
+    audio : true,
     audio: {
       echoCancellation: true,
       noiseSuppression: true,
@@ -94,48 +95,45 @@ const ContextProvider = ({ children }) => {
     //console.log("URL 1 ", videoUrl )
 
     
-
+    let blob ;
     mediaRecorder.onstop = () => {
-    const blob = new Blob(recordedChunks, { type: 'video/webm;codecs=vp9' });
+     blob = new Blob(recordedChunks, { type: 'video/webm;codecs=vp9' });
       console.log('Blob : ', blob);
       //console.log('Blob type:', blob.type);
     // Creating a temporary URL for the Blob
       setVideoUrl(URL.createObjectURL(blob));
+      //console.log("VIDEO URL",videoUrl)
+    }
+    
+    
+     
+    try {
+      const response = await fetch(videoUrl);
+      const blob = await response.blob();
+  
+      const formData = new FormData();
+      formData.append('videoFile', blob);
+  
+      const uploadResponse = await fetch('http://localhost:8000/upload', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (uploadResponse.ok) {
+        const result = await uploadResponse.json();
+        const CloudinaryvideoUrl = result.url;
+  
+        console.log('Video uploaded to Cloudinary:', CloudinaryvideoUrl);
+      } else {
+        console.error('Error uploading video to Cloudinary:', uploadResponse.status);
+      }
+    } catch (error) {
+      console.error('Error uploading video to Cloudinary:', error);
     }
     if(mediaRecorder){
       mediaRecorder.stop();      
      }
-    console.log(videoUrl)
-/*
-    // Convert the Blob to a base64-encoded string
-    const reader = new FileReader();
-    reader.readAsDataURL(blob);
-    let base64data ;
-    reader.onloadend = async () => {
-    base64data = reader.result;
-  }
-    
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          body: JSON.stringify({ videoData: base64data }),
-        });
-
-        if (response.ok) {
-          const result = await response.json();
-          const videoUrl = result.secure_url;
-
-          console.log("Video uploaded to Cloudinary:", videoUrl);
-        } else {
-          console.error(
-            "Error uploading video to Cloudinary:",
-            response.status
-          );
-        }
-      } catch (error) {
-        console.error("Error uploading video to Cloudinary:", error);
-      }*/
-    }
+}
   };
 
   return (

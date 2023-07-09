@@ -4,8 +4,8 @@
         display: flex;
         flex-direction: column;
         gap : 0.5rem;
-        align-items: start;
-        justify-content: start;
+        align-items: flex-start;
+        justify-content: flex-start;
         background: white;
         color : rgb(93, 90, 90); 
         border : solid white 1px;

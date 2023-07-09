@@ -6,12 +6,24 @@ import { createUser } from './controllers/register';
 import {authMiddleware} from "./middlewares/authMiddleware";
 import { loginUser } from './controllers/login';
 import dotenv from 'dotenv';
+import cors, { CorsOptions } from "cors"
 dotenv.config();
 
 const app = express();
+// Define a whitelist array with allowed origins
+const whitelist: string[] = ['http://localhost:3000'];
 
+const corsOptions: CorsOptions = {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    if (whitelist.indexOf(origin!) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
 
-
+app.use(cors(corsOptions));
 app.use(express.json())
 app.use(fileUpload());
 
