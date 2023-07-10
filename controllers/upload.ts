@@ -1,30 +1,38 @@
 import { Request, Response } from 'express';
-import { UploadApiResponse } from 'cloudinary';
-import cloudinary from '../configs/cloudinary_config';
-import streamifier from 'streamifier';
+import cloudinary from 'cloudinary';
+import multer from 'multer';
 
-interface UploadRequest extends Request {
-  file: {
-    buffer: Buffer;
-  };
-}
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-export const upload = async (req: UploadRequest, res: Response): Promise<any> => {
+// Set up multer storage configuration
+const storage = multer.memoryStorage();
+const uploadFile = multer({ storage });
+
+export const upload = async (req: Request, res: Response): Promise<any> => {
   try {
-    const buffer = req.file.buffer;
-    const result = await new Promise<UploadApiResponse>((resolve, reject) => {
-      const uploadStream = cloudinary.v2.uploader.upload_stream(
-        { resource_type: 'video' },
-        (error, result) => {
-          if (error) {
-            reject(error);
-          } else if (result) {
-            resolve(result);
-          }
+    const file = req.file;
+    if (!file) {
+      res.status(400).json({ error: 'No file received' });
+    }
+    const result =  cloudinary.v2.uploader.upload_stream(
+      { resource_type: 'video' },
+      (error: any, result: cloudinary.UploadApiResponse | undefined) => {
+        if (error) {
+          console.log('UPLOADING VIDEO ERROR:', error);
+          res.status(500).json({ error });
+        } else {
+          console.log(result);
+          res.json({ url: result?.secure_url });
         }
-      );
-      streamifier.createReadStream(buffer).pipe(uploadStream);
-    });
+      }
+    ).end(file?.buffer);
+
+    console.log(result);
+    //@ts-ignore
     res.json({ url: result.secure_url });
   } catch (error) {
     console.log('UPLOADING VIDEO ERROR:', error);

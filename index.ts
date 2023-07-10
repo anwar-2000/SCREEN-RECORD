@@ -7,6 +7,7 @@ import {authMiddleware} from "./middlewares/authMiddleware";
 import { loginUser } from './controllers/login';
 import dotenv from 'dotenv';
 import cors, { CorsOptions } from "cors"
+import { UpdateUser } from './controllers/saveUser';
 dotenv.config();
 
 const app = express();
@@ -40,6 +41,8 @@ app.use('/users/login',loginUser)
 
 //@ts-ignore
 app.post('/upload', authMiddleware , upload);
+
+app.post('/user', UpdateUser);
 
 
 // Start the server

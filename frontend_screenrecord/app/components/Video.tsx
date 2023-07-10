@@ -3,6 +3,7 @@ import {FaDeleteLeft} from "react-icons/fa6"
 import React, { useContext, useEffect, useState } from 'react'
 import styles from "./styles/video.module.css"
 import { VideoContext } from '../VideoContext'
+import { saveVideo } from "@/lib/utils"
 
 interface Props {
   onchange : () => void
@@ -23,7 +24,17 @@ const Video:React.FC<Props> = ({onchange}) =>{
               settoken(userToken)
             }
         },[stream , recordedVideo])
-       // console.log("token"+token)
+
+        useEffect(()=>{
+          console.log("video url" + " " + videoUrl)
+        },[videoUrl])
+
+        async function handleSaveVideo  (url:string , token  : string) {
+          console.log("SAVING VIDEO WITH ",url,token)
+            const response = await saveVideo(url,token)
+            console.log(response)
+        }
+       
   
   return (
     <>
@@ -35,7 +46,7 @@ const Video:React.FC<Props> = ({onchange}) =>{
         {!videoUrl && 
        <button onClick={StopCapture}>Stop Recording</button>
           }
-                <button disabled={token === ""} onClick={()=>console.log("saving ....")}>SAVE IN GALLERY</button>
+                <button onClick={()=>handleSaveVideo(videoUrl!,token)}>SAVE IN GALLERY</button>
                 <a href={videoUrl as unknown as string} download>Download</a>
         </div>
         </div>

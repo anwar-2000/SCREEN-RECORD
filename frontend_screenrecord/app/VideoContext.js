@@ -106,7 +106,7 @@ const ContextProvider = ({ children }) => {
     }
     
     
-     
+    /* 
     try {
       const response = await fetch(videoUrl);
       const blob = await response.blob();
@@ -129,12 +129,13 @@ const ContextProvider = ({ children }) => {
       }
     } catch (error) {
       console.error('Error uploading video to Cloudinary:', error);
-    }
+    }*/
     if(mediaRecorder){
       mediaRecorder.stop();      
      }
 }
   };
+
 
   return (
     <VideoContext.Provider
