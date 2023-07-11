@@ -28,7 +28,6 @@ const Video:React.FC<Props> = ({onchange}) =>{
         useEffect(()=>{
           console.log("video url" + " " + videoUrl)
         },[videoUrl])
-
         async function handleSaveVideo  (url:string , token  : string) {
           console.log("SAVING VIDEO WITH ",url,token)
             const response = await saveVideo(url,token)

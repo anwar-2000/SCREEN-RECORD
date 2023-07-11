@@ -9,6 +9,7 @@ interface userRequest extends Request {
 }
 export const authMiddleware = (req : userRequest, res :Response, next:NextFunction) => {
   const token = req.header('Authorization');
+  console.log("BODY IN AUTH MIDDLE",req.body)
   //console.log("token:",token)
   if (!token) {
     return res.status(401).json({ message: 'Missing token, authorization denied' });

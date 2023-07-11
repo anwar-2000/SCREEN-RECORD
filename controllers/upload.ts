@@ -14,25 +14,18 @@ const uploadFile = multer({ storage });
 
 export const upload = async (req: Request, res: Response): Promise<any> => {
   try {
-    const file = req.file;
+    console.log("BODY REQ",req.body)
+    const file = req.body;
     if (!file) {
       res.status(400).json({ error: 'No file received' });
+      return;
     }
-    const result =  cloudinary.v2.uploader.upload_stream(
-      { resource_type: 'video' },
-      (error: any, result: cloudinary.UploadApiResponse | undefined) => {
-        if (error) {
-          console.log('UPLOADING VIDEO ERROR:', error);
-          res.status(500).json({ error });
-        } else {
-          console.log(result);
-          res.json({ url: result?.secure_url });
-        }
-      }
-    ).end(file?.buffer);
+
+    const result = await cloudinary.v2.uploader.upload(file.buffer.toString('base64'), {
+      resource_type: 'video',
+    });
 
     console.log(result);
-    //@ts-ignore
     res.json({ url: result.secure_url });
   } catch (error) {
     console.log('UPLOADING VIDEO ERROR:', error);

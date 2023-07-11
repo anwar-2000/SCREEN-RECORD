@@ -96,9 +96,11 @@ const ContextProvider = ({ children }) => {
 
     
     let blob ;
-    mediaRecorder.onstop = () => {
+     mediaRecorder.onstop = () => {
      blob = new Blob(recordedChunks, { type: 'video/webm;codecs=vp9' });
       console.log('Blob : ', blob);
+
+      
       //console.log('Blob type:', blob.type);
     // Creating a temporary URL for the Blob
       setVideoUrl(URL.createObjectURL(blob));
